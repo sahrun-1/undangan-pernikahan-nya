@@ -1,0 +1,1148 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Undangan Pernikahan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Ballet&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ANIMASI SEMUA TEKS DARI KANAN KE KIRI */
+.teks-scroll {
+    opacity: 0;
+    transform: translateX(80px);
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.teks-scroll.muncul-teks {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Mengikuti pengaturan pengguna yang mengurangi animasi */
+@media (prefers-reduced-motion: reduce) {
+    .teks-scroll {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* EFEK TEKS MENGETIK */
+.teks-mengetik {
+    white-space: pre-wrap;
+}
+
+.kursor-mengetik::after {
+    content: "|";
+    display: inline-block;
+    margin-left: 3px;
+    color: #e6c49a;
+    animation: kedipKursor .7s infinite;
+}
+
+@keyframes kedipKursor {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+:root {
+    --bg: #17120f;
+    --putih: #ffffff;
+    --krem: #e6c49a;
+    --deskripsi: #eee0d0;
+    --cokelat: #b6895b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--putih);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: .04em;
+    font-weight: 300;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    font-family: 'Ballet', cursive;
+    font-weight: 400;
+}
+
+section {
+    padding: 75px 7%;
+    text-align: center;
+}
+
+.judul {
+    color: var(--krem);
+    font-size: 100%;
+    margin-bottom: 18px;
+}
+
+.deskripsi {
+    color: var(--deskripsi);
+    font-size: 11px;
+    line-height: 1.7;
+    font-weight: 300;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.tombol {
+    display: inline-block;
+    background: var(--cokelat);
+    color: white;
+    padding: 12px 27px;
+    border-radius: 30px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    letter-spacing: .1em;
+    margin-top: 20px;
+}
+
+.tombol:hover {
+    opacity: .85;
+}
+
+/* COVER */
+.cover {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    background:
+        linear-gradient(rgba(0,0,0,.48), rgba(0,0,0,.7)),
+        url("assets/background-cover.jpeg") center/cover no-repeat;
+    transition: .8s;
+}
+
+.cover.sembunyi {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.cover-content {
+    max-width: 550px;
+    width: 100%;
+    text-align: center;
+}
+
+.cover p {
+    font-size: 11px;
+    letter-spacing: .18em;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.cover h1 {
+    font-size: 65px;
+    color: var(--krem);
+    line-height: 1.2;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.cover .tombol {
+    display: inline-block;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* HERO */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.7)),
+        url("assets/background-undangan.jpeg") center/cover no-repeat;
+}
+
+.hero > div {
+    max-width: 650px;
+    width: 100%;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: clamp(55px, 10vw, 90px);
+    color: var(--krem);
+    margin: 10px 0 20px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.hero .deskripsi {
+    max-width: 420px;
+    margin: 15px auto;
+}
+
+.salam {
+    font-family: 'Times New Roman', serif;
+    font-size: 22px;
+    color: var(--krem);
+    direction: rtl;
+    text-align: center;
+    line-height: 2;
+    margin: 15px auto;
+}
+
+.foto-utama {
+    width: 150px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 48% 48% 8px 8px;
+    border: 3px solid var(--krem);
+    margin: 18px auto;
+    display: block;
+}
+
+/* MEMPELAI */
+.mempelai {
+    background: #211914;
+}
+
+.mempelai-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 35px;
+    margin-top: 35px;
+}
+
+.mempelai-card {
+    width: 260px;
+}
+
+.mempelai-card img {
+    width: 150px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 120px 120px 10px 10px;
+    border: 2px solid var(--krem);
+    margin-bottom: 18px;
+}
+
+.mempelai-card h3 {
+    color: var(--krem);
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.mempelai-card p {
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+/* COUNTDOWN */
+.countdown {
+    background:
+        linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)),
+        url("assets/background-undangan.jpeg") center/cover fixed;
+}
+
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.count-box {
+    background: var(--cokelat);
+    min-width: 75px;
+    padding: 15px 12px;
+    border-radius: 8px;
+}
+
+.count-box strong {
+    display: block;
+    font-size: 25px;
+}
+
+.count-box span {
+    font-size: 10px;
+}
+
+/* ACARA */
+.acara {
+    background: #211914;
+}
+
+.acara-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.acara-card {
+    width: 280px;
+    padding: 30px 20px;
+    border: 1px solid var(--cokelat);
+    border-radius: 10px;
+}
+
+.acara-card h3 {
+    font-size: 38px;
+    color: var(--krem);
+    margin-bottom: 15px;
+}
+
+.acara-card p {
+    font-size: 11px;
+    line-height: 2;
+}
+
+/* KISAH KAMI */
+.kisah {
+    background: var(--bg);
+}
+
+.kisah-container {
+    max-width: 750px;
+    margin: auto;
+}
+
+.kisah-item {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin: 35px 0;
+    text-align: left;
+}
+
+.kisah-item.kedua {
+    flex-direction: row-reverse;
+}
+
+.kisah-item img {
+    width: 42%;
+    max-width: 220px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.kisah-teks {
+    flex: 1;
+}
+
+.kisah-teks h3 {
+    color: var(--krem);
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.kisah-teks p {
+    color: var(--deskripsi);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+/* GALERI */
+.galeri {
+    background: #211914;
+}
+
+.galeri-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 750px;
+    margin: 30px auto 0;
+}
+
+.galeri-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 7px;
+}
+
+/* SAVE THE DATE */
+.save-date {
+    background: var(--bg);
+}
+
+.save-date h2 {
+    color: var(--krem);
+    font-size: 42px;
+    margin-bottom: 25px;
+}
+
+.ayat-arab {
+    max-width: 850px;
+    margin: 0 auto 20px;
+    color: var(--krem);
+    direction: rtl;
+    font-family: 'Times New Roman', serif;
+    font-size: 24px;
+    line-height: 2;
+}
+
+.ayat-terjemahan {
+    max-width: 750px;
+    margin: 0 auto;
+    color: var(--deskripsi);
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+.ayat-referensi {
+    margin-top: 18px;
+    color: var(--krem);
+    font-size: 11px;
+    letter-spacing: .12em;
+}
+
+/* LOKASI */
+.lokasi iframe {
+    width: 100%;
+    max-width: 600px;
+    height: 280px;
+    border: 0;
+    border-radius: 8px;
+    margin-top: 25px;
+}
+
+.alamat {
+    margin-top: 15px;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+/* RSVP */
+.rsvp {
+    background: #211914;
+}
+
+.rsvp-form {
+    max-width: 500px;
+    margin: 25px auto 0;
+}
+
+.rsvp-form input,
+.rsvp-form select,
+.rsvp-form textarea {
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 13px;
+    background: transparent;
+    border: 1px solid var(--cokelat);
+    color: white;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+}
+
+.rsvp-form select option {
+    color: black;
+}
+
+.rsvp-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* AMPLOP DIGITAL */
+.amplop {
+    background: var(--bg);
+}
+
+.rekening {
+    border: 1px solid var(--cokelat);
+    padding: 25px;
+    max-width: 350px;
+    margin: 25px auto;
+    border-radius: 8px;
+}
+
+.rekening h3 {
+    font-size: 35px;
+    color: var(--krem);
+}
+
+.rekening strong {
+    display: block;
+    font-size: 22px;
+    margin: 12px 0;
+    letter-spacing: .1em;
+}
+
+/* PENUTUP */
+.penutup {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background:
+        linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.75)),
+        url("assets/background-cover.jpeg") center/cover no-repeat;
+}
+
+.penutup h2 {
+    color: var(--krem);
+    font-size: 60px;
+    margin: 20px 0;
+}
+
+/* FOOTER */
+footer {
+    padding: 25px 10px;
+    text-align: center;
+    font-size: 10px;
+    background: #100c09;
+    color: var(--deskripsi);
+}
+
+/* FOTO SCROLL */
+.foto-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+.foto-scroll.muncul {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* TOMBOL MUSIK */
+.music-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 100;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--cokelat);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 650px) {
+    section {
+        padding: 60px 6%;
+    }
+
+    .cover h1 {
+        font-size: 65px;
+    }
+
+    .hero h1 {
+        font-size: 65px;
+    }
+
+    .hero .deskripsi {
+        font-size: 13px;
+    }
+
+    .kisah-item,
+    .kisah-item.kedua {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .kisah-item img {
+        width: 100%;
+        height: 210px;
+    }
+
+    .galeri-container img {
+        height: 150px;
+    }
+
+    .lokasi iframe {
+        height: 220px;
+    }
+
+    .mempelai-card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero h1,
+    .cover h1 {
+        font-size: 55px;
+    }
+
+    .foto-utama {
+        width: 135px;
+        height: 175px;
+    }
+
+    .galeri-container img {
+        height: 130px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .foto-scroll {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIK -->
+<audio id="weddingMusic" loop preload="auto">
+    <source src="assets/lagu.mp4" type="audio/mp4">
+</audio>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+    <div class="cover-content">
+        <p>UNDANGAN PERNIKAHAN</p>
+        <h1>Raro & Roro</h1>
+        <p>MINGGU, 20 JUNI 2027</p>
+        <p>Tanpa Mengurangi Rasa Hormat. Kami Mengundang</p>
+        <p>Bapak/Ibu/Saudara/i untuk hadir di acara kami.</p>
+        <button class="tombol" onclick="openInvitation()">
+            BUKA UNDANGAN
+        </button>
+    </div>
+</div>
+
+
+<!-- HERO -->
+<section class="hero">
+    <div>
+        <p id="teksPembuka">THE WEDDING OF</p>
+
+        <h1 id="teksNama">Raro & Roro</h1>
+
+        <p class="salam" id="teksSalam">
+            ٱلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ ٱللَّٰهِ وَبَرَكَاتُهُ
+        </p>
+
+        <p class="deskripsi" id="teksDeskripsi">
+            Dengan memohon rahmat dan ridho Allah SWT,
+            kami bermaksud menyelenggarakan pernikahan kami.
+        </p>
+
+        <img src="assets/raka-laras.jpeg"
+             class="foto-utama foto-scroll"
+             alt="Foto Raro dan Roro">
+
+        <p id="teksTanggal">Minggu, 20 Juni 2027</p>
+
+        <a href="#acara" class="tombol">LIHAT DETAIL ACARA</a>
+    </div>
+</section>
+
+<!-- MEMPELAI -->
+<section class="mempelai">
+    <p class="judul">KEDUA MEMPELAI</p>
+    <h2 class="judul" style="font-family:Ballet;font-size:55px">
+        Raro & Roro
+    </h2>
+
+    <div class="mempelai-container">
+
+        <div class="mempelai-card">
+            <img src="assets/raro.jpeg" class="foto-scroll" alt="Raro">
+            <h3>Raro</h3>
+            <p>Putra dari</p>
+            <p>Bapak ... & Ibu ...</p>
+        </div>
+
+        <div class="mempelai-card">
+            <img src="assets/roro.jpeg" class="foto-scroll" alt="Roro">
+            <h3>Roro</h3>
+            <p>Putri dari</p>
+            <p>Bapak ... & Ibu ...</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown">
+    <p class="judul">MENUJU HARI BAHAGIA</p>
+    <h2 style="font-family:Ballet;font-size:48px;color:#e6c49a">
+        20 Juni 2027
+    </h2>
+
+    <div class="countdown-container">
+        <div class="count-box">
+            <strong id="days">0</strong>
+            <span>HARI</span>
+        </div>
+
+        <div class="count-box">
+            <strong id="hours">0</strong>
+            <span>JAM</span>
+        </div>
+
+        <div class="count-box">
+            <strong id="minutes">0</strong>
+            <span>MENIT</span>
+        </div>
+
+        <div class="count-box">
+            <strong id="seconds">0</strong>
+            <span>DETIK</span>
+        </div>
+    </div>
+</section>
+
+<!-- ACARA -->
+<section class="acara" id="acara">
+    <p class="judul">WAKTU DAN TEMPAT</p>
+    <h2 style="font-family:Ballet;font-size:48px;color:#e6c49a">
+        Rangkaian Acara
+    </h2>
+
+    <div class="acara-container">
+
+        <div class="acara-card">
+            <h3>Akad Nikah</h3>
+            <p>Minggu, 20 Juni 2027</p>
+            <p>Pukul 08.00 – 10.00 WITA</p>
+            <p>Tempat: Mujur, Lombok Tengah</p>
+        </div>
+
+        <div class="acara-card">
+            <h3>Resepsi</h3>
+            <p>Minggu, 20 Juni 2027</p>
+            <p>Pukul 10.00 WITA – Selesai</p>
+            <p>Tempat: Mujur, Lombok Tengah</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- KISAH KAMI 1 -->
+<section class="kisah">
+    <p class="judul">CERITA CINTA KAMI</p>
+    <h2 style="font-family:Ballet;font-size:48px;color:#e6c49a">
+        Kisah Kami
+    </h2>
+
+    <div class="kisah-container">
+        <div class="kisah-item">
+            <img src="assets/foto1.jpeg"
+                 class="foto-scroll" alt="Awal Bertemu">
+
+            <div class="kisah-teks">
+                <h3>Awal Bertemu</h3>
+                <p>
+                    Semua berawal dari sebuah pertemuan sederhana.
+                    Dari perkenalan itu, kami mulai mengenal satu sama lain
+                    dan menemukan kenyamanan dalam kebersamaan.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- KISAH KAMI 2 -->
+<section class="kisah">
+    <div class="kisah-container">
+        <div class="kisah-item kedua">
+            <img src="assets/foto2.jpeg"
+                 class="foto-scroll" alt="Menuju Hari Bahagia">
+
+            <div class="kisah-teks">
+                <h3>Menuju Hari Bahagia</h3>
+                <p>
+                    Waktu membawa kami melewati berbagai cerita.
+                    Dengan doa, keyakinan, dan harapan,
+                    kami memutuskan untuk melangkah bersama
+                    menuju kehidupan baru.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GALERI -->
+<section class="galeri">
+    <p class="judul">MOMEN KEBERSAMAAN</p>
+    <h2 style="font-family:Ballet;font-size:48px;color:#e6c49a">
+        Galeri Foto
+    </h2>
+
+    <div class="galeri-container">
+        <img src="assets/foto1.jpeg" class="foto-scroll" alt="Galeri 1">
+        <img src="assets/foto2.jpeg" class="foto-scroll" alt="Galeri 2">
+        <img src="assets/foto3.jpeg" class="foto-scroll" alt="Galeri 3">
+        <img src="assets/foto4.jpeg" class="foto-scroll" alt="Galeri 4">
+    </div>
+</section>
+
+<!-- SAVE THE DATE -->
+<section class="save-date">
+    <h2>Save The Date</h2>
+    <p class="ayat-arab">
+        وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
+    </p>
+    <p class="ayat-terjemahan">
+        Di antara tanda-tanda (kebesaran)-Nya ialah bahwa Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.
+    </p>
+    <p class="ayat-referensi">AR-RUM AYAT 21</p>
+</section>
+
+<!-- LOKASI -->
+<section class="lokasi">
+    <p class="judul">LOKASI ACARA</p>
+    <h2 style="font-family:Ballet;font-size:48px;color:#e6c49a">
+        Google Maps
+    </h2>
+
+    <p class="alamat">
+        69X5+9C9 Mujur, Kabupaten Lombok Tengah,
+        Nusa Tenggara Barat, Indonesia
+    </p>
+
+    <iframe
+        src="https://maps.google.com/maps?q=69X5%2B9C9%20Mujur%20Kabupaten%20Lombok%20Tengah%20Nusa%20Tenggara%20Barat&t=&z=15&ie=UTF8&iwloc=&output=embed"
+        loading="lazy"
+        allowfullscreen>
+    </iframe>
+
+    <br>
+
+    <a class="tombol"
+       href="https://www.google.com/maps/search/?api=1&query=69X5%2B9C9%20Mujur%20Kabupaten%20Lombok%20Tengah%20Nusa%20Tenggara%20Barat"
+       target="_blank">
+        BUKA GOOGLE MAPS
+    </a>
+</section>
+
+<!-- RSVP -->
+<section class="rsvp">
+    <p class="judul">KONFIRMASI KEHADIRAN</p>
+    <h2 style="font-family:Ballet;font-size:48px;color:#e6c49a">
+        RSVP
+    </h2>
+
+    <form class="rsvp-form" id="rsvpForm">
+
+        <input
+            type="text"
+            id="nama"
+            placeholder="Nama Lengkap"
+            required>
+
+        <select id="kehadiran" required>
+            <option value="">Pilih Konfirmasi Kehadiran</option>
+            <option value="Hadir">Hadir</option>
+            <option value="Tidak Hadir">Tidak Hadir</option>
+        </select>
+
+        <textarea
+            id="ucapan"
+            placeholder="Tuliskan ucapan dan doa..."></textarea>
+
+        <button type="submit" class="tombol">
+            KIRIM KONFIRMASI
+        </button>
+
+    </form>
+</section>
+
+<!-- AMPLOP DIGITAL -->
+<section class="amplop">
+    <p class="judul">TANDA KASIH</p>
+    <h2 style="font-family:Ballet;font-size:48px;color:#e6c49a">
+        Amplop Digital
+    </h2>
+
+    <div class="rekening">
+        <h3>BCA</h3>
+        <p>Nomor Rekening</p>
+        <strong id="nomorRekening">99889888</strong>
+        <p>Atas Nama: Raro</p>
+
+        <button class="tombol" onclick="copyRekening()">
+            SALIN NOMOR REKENING
+        </button>
+    </div>
+</section>
+
+<!-- PENUTUP -->
+<section class="penutup">
+    <p class="judul">TERIMA KASIH</p>
+
+    <p class="deskripsi">
+        Merupakan suatu kehormatan dan kebahagiaan
+        bagi kami apabila Bapak/Ibu/Saudara/i
+        berkenan hadir untuk memberikan doa restu.
+    </p>
+
+    <h2>Raro & Roro</h2>
+
+    <p class="deskripsi">
+        Minggu, 20 Juni 2027
+    </p>
+</section>
+
+<footer>
+    <p>© 2027 Undangan Pernikahan Raro & Roro</p>
+    <p>Terima kasih atas doa dan restunya.</p>
+</footer>
+
+<!-- TOMBOL MUSIK -->
+<button class="music-button"
+        id="musicButton"
+        onclick="toggleMusic()"
+        aria-label="Putar atau jeda musik">
+    ▶
+</button>
+
+<script>
+
+// ANIMASI SEMUA TEKS DARI KANAN KE KIRI
+function mulaiAnimasiSemuaTeks() {
+    const semuaTeks = document.querySelectorAll(`
+        section h1,
+        section h2,
+        section h3,
+        section p,
+        section a,
+        section button,
+        section strong,
+        section span,
+        footer h1,
+        footer h2,
+        footer h3,
+        footer p,
+        footer a,
+        footer span,
+        .count-box,
+        .rekening
+    `);
+
+    const observerTeks = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("muncul-teks");
+                observerTeks.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15
+    });
+
+    semuaTeks.forEach((teks) => {
+        if (!teks.classList.contains("foto-scroll")) {
+            teks.classList.add("teks-scroll");
+            observerTeks.observe(teks);
+        }
+    });
+}
+
+// BUKA UNDANGAN
+const cover = document.getElementById("cover");
+const music = document.getElementById("weddingMusic");
+const musicButton = document.getElementById("musicButton");
+
+function openInvitation() {
+    cover.classList.add("sembunyi");
+
+    mulaiAnimasiSemuaTeks();
+
+    setTimeout(() => {
+        const currentTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentTop > 0) {
+            let pos = currentTop;
+            const step = Math.max(12, Math.ceil(currentTop / 20));
+
+            const scrollUp = setInterval(() => {
+                pos = Math.max(0, pos - step);
+                window.scrollTo(0, pos);
+
+                if (pos === 0) {
+                    clearInterval(scrollUp);
+                }
+            }, 12);
+        }
+    }, 450);
+
+    music.play()
+        .then(() => {
+            musicButton.textContent = "❚❚";
+        })
+        .catch(() => {
+            musicButton.textContent = "▶";
+        });
+}
+
+// MUSIK
+function toggleMusic() {
+    if (music.paused) {
+        music.play()
+            .then(() => {
+                musicButton.textContent = "❚❚";
+            })
+            .catch(() => {
+                alert("Musik belum bisa diputar. Periksa file assets/lagu.mp4.");
+            });
+    } else {
+        music.pause();
+        musicButton.textContent = "▶";
+    }
+}
+
+// COUNTDOWN
+const weddingDate = new Date(
+    "2027-06-20T08:00:00+08:00"
+).getTime();
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    if (distance <= 0) {
+        ["days", "hours", "minutes", "seconds"].forEach(id => {
+            document.getElementById(id).textContent = "0";
+        });
+        return;
+    }
+
+    document.getElementById("days").textContent =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
+
+    document.getElementById("hours").textContent =
+        Math.floor((distance % (1000 * 60 * 60 * 24)) /
+        (1000 * 60 * 60));
+
+    document.getElementById("minutes").textContent =
+        Math.floor((distance % (1000 * 60 * 60)) /
+        (1000 * 60));
+
+    document.getElementById("seconds").textContent =
+        Math.floor((distance % (1000 * 60)) / 1000);
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ANIMASI FOTO SAAT SCROLL
+const fotoElements = document.querySelectorAll(".foto-scroll");
+
+if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("muncul");
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15
+    });
+
+    fotoElements.forEach(foto => observer.observe(foto));
+} else {
+    fotoElements.forEach(foto => foto.classList.add("muncul"));
+}
+
+// SALIN REKENING
+function copyRekening() {
+    const nomor = document.getElementById("nomorRekening").textContent.trim();
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(nomor)
+            .then(() => alert("Nomor rekening berhasil disalin!"))
+            .catch(() => fallbackCopy(nomor));
+    } else {
+        fallbackCopy(nomor);
+    }
+}
+
+function fallbackCopy(teks) {
+    const temp = document.createElement("textarea");
+    temp.value = teks;
+    document.body.appendChild(temp);
+    temp.select();
+
+    try {
+        document.execCommand("copy");
+        alert("Nomor rekening berhasil disalin!");
+    } catch (error) {
+        alert("Salin nomor rekening: " + teks);
+    }
+
+    temp.remove();
+}
+
+// RSVP WHATSAPP
+document.getElementById("rsvpForm")
+.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const nama = document.getElementById("nama").value.trim();
+    const kehadiran = document.getElementById("kehadiran").value;
+    const ucapan = document.getElementById("ucapan").value.trim();
+
+    const nomorWhatsApp = "6287719253714";
+
+    const pesan =
+        "Assalamu'alaikum, saya ingin mengonfirmasi undangan Raro & Roro.\n\n" +
+        "Nama: " + nama + "\n" +
+        "Kehadiran: " + kehadiran + "\n" +
+        "Ucapan: " + ucapan;
+
+    window.open(
+        "https://wa.me/" + nomorWhatsApp +
+        "?text=" + encodeURIComponent(pesan),
+        "_blank"
+    );
+});
+
+</script>
+
+</body>
+</html>
